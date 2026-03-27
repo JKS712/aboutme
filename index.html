@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沈宏勳 — 軟體工程師履歷</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --paper: #ffffff;
+    --accent: #b02828;      /* red — prints as dark grey */
+    --accent-light: #f0dada;
+    --muted: #555555;       /* medium grey — clear on B&W */
+    --border: #bbbbbb;
+    --tag-bg: #f0f0f0;
+    --header-bg: #f2f2f2;   /* light grey replaces black */
+    --summary-border: #b02828;
+    --edu-bg: #f2f2f2;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: #e8e8e8;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ── A4 容器 ── */
+  .page {
+    width: 210mm;
+    height: 297mm;
+    margin: 20px auto;
+    padding: 11mm 13mm;
+    background: var(--paper);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .page::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+  .page > * { position: relative; z-index: 1; }
+
+  /* ── HEADER ── */
+  header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 20px;
+    padding-bottom: 6mm;
+    margin-bottom: 5mm;
+    border-bottom: 2px solid var(--ink);
+  }
+  .header-left { display: flex; flex-direction: column; gap: 3px; }
+  .label-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+    padding-top: 4px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    text-decoration: none;
+  }
+  .contact-item .dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* ── SUMMARY ── */
+  .summary {
+    background: var(--header-bg);
+    border-left: 4px solid var(--accent);
+    padding: 8px 14px 10px 14px;
+    margin-bottom: 5mm;
+    position: relative;
+    break-inside: avoid;
+  }
+  .summary::before {
+    content: '"';
+    font-family: 'Noto Serif TC', serif;
+    font-size: 40px;
+    color: var(--accent);
+    position: absolute;
+    top: -5px; left: 10px;
+    line-height: 1;
+  }
+  .summary p {
+    font-size: 10.5px;
+    line-height: 1.8;
+    color: var(--ink);
+    padding-top: 12px;
+  }
+
+  /* ── 主體：左欄 + 右側欄 ── */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 54mm;
+    gap: 6mm;
+    align-items: start;
+    margin-bottom: 5mm;
+  }
+
+  /* ── SECTION ── */
+  section { margin-bottom: 4.5mm; }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 3mm;
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── ENTRY ── */
+  .entry {
+    padding-left: 10px;
+    border-left: 2px solid var(--accent-light);
+    position: relative;
+    break-inside: avoid;
+  }
+  .entry::before {
+    content: '';
+    position: absolute;
+    left: -4px; top: 5px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 1px;
+  }
+  .entry-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .entry-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .entry-org {
+    font-size: 9.5px;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  .entry-list { list-style: none; margin-top: 2px; }
+  .entry-list li {
+    font-size: 9.5px;
+    color: var(--muted);
+    padding-left: 10px;
+    position: relative;
+    margin-bottom: 1px;
+    line-height: 1.6;
+  }
+  .entry-list li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 8px;
+  }
+
+  /* ── BIO ── */
+  .bio-para {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 3px;
+    padding-left: 1mm;
+  }
+  .bio-bullet {
+    color: var(--accent);
+    font-size: 7.5px;
+    flex-shrink: 0;
+    margin-top: 4px;
+    line-height: 1;
+  }
+  .bio-text {
+    font-size: 10px;
+    color: var(--muted);
+    line-height: 1.8;
+    text-align: justify;
+    flex: 1;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar section { margin-bottom: 4mm; }
+  .edu-card {
+    background: var(--edu-bg);
+    color: var(--ink);
+    border-left: 4px solid var(--accent);
+    padding: 8px 10px;
+    break-inside: avoid;
+  }
+  .edu-school {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    line-height: 1.45;
+  }
+  .edu-dept { font-size: 9.5px; color: var(--muted); margin-bottom: 4px; }
+  .edu-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+  }
+  .skill-group { margin-bottom: 3.5mm; break-inside: avoid; }
+  .skill-group-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .skill-chips { display: flex; flex-wrap: wrap; gap: 2px; }
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    padding: 2px 5px;
+    border: 1px solid var(--border);
+    color: var(--ink);
+    background: rgba(255,255,255,0.5);
+  }
+  .chip.highlight {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+  }
+  .github-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--ink);
+    background: rgba(255,255,255,0.5);
+    break-inside: avoid;
+  }
+  .github-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── 專案：全寬 2×2，等高填滿 ── */
+  .project-section {
+    break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+  }
+  .project-section .section-header { margin-bottom: 3mm; flex-shrink: 0; }
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3mm;
+    flex: 1;
+    min-height: 0;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    padding: 7px 9px;
+    background: rgba(255,255,255,0.45);
+    break-inside: avoid;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+  .project-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+  .project-desc {
+    font-size: 9px;
+    color: var(--muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin-top: 4px;
+  }
+  .ptag {
+    font-family: 'DM Mono', monospace;
+    font-size: 7.5px;
+    padding: 1px 5px;
+    background: var(--tag-bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+
+  /* ── 列印 ── */
+  @media print {
+    @page { size: A4 portrait; margin: 0; }
+    html, body {
+      background: white !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 !important;
+      padding: 10mm 12mm;
+      box-shadow: none !important;
+      background: var(--paper) !important;
+      display: flex;
+      flex-direction: column;
+    }
+    .page::after { display: none; }
+    .entry, .project-card, .skill-group, .edu-card,
+    .github-badge, .summary, .project-section, .bio-para {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+    * { animation: none !important; transition: none !important; }
+    .summary { background: var(--header-bg) !important; border-left: 4px solid var(--accent) !important; }
+    .edu-card { background: var(--edu-bg) !important; border-left: 4px solid var(--accent) !important; }
+    .chip.highlight { background: var(--accent) !important; color: white !important; }
+    .project-card::before { background: var(--accent) !important; }
+  }
+
+  /* ── 螢幕 hover ── */
+  @media screen {
+    .contact-item:hover { color: var(--accent); transition: color 0.2s; }
+    .project-card { transition: border-color 0.2s; }
+    .project-card:hover { border-color: var(--accent); }
+    .chip { transition: background 0.15s, color 0.15s; cursor: default; }
+    .chip:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .github-badge { transition: background 0.2s, color 0.2s; }
+    .github-badge:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    header, .summary, .body-grid, .project-section { animation: fadeUp 0.5s ease both; }
+    .summary { animation-delay: 0.07s; }
+    .body-grid { animation-delay: 0.14s; }
+    .project-section { animation-delay: 0.2s; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-left">
+      <span class="label-tag">Software Engineer · Resume</span>
+      <h1>沈宏勳</h1>
+      <div class="subtitle">新鮮人 · 高雄市, 台灣</div>
+    </div>
+    <div class="contact-block">
+      <a class="contact-item" href="tel:0960517016">
+        <span class="dot"></span>0960517016
+      </a>
+      <a class="contact-item" href="mailto:2018jacky771122@gmail.com">
+        <span class="dot"></span>2018jacky771122@gmail.com
+      </a>
+      <a class="contact-item" href="https://github.com/JKS712" target="_blank">
+        <span class="dot"></span>https://github.com/JKS712
+      </a>
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <p>畢業於國立臺東大學資訊工程學系，具備 C++、Python、Kotlin 等多語言開發能力，熟練使用 Android Studio 進行應用程式開發。曾於專題中擔任組長，帶領團隊完成系統實作，累積豐富的工程實踐與協作經驗。期望持續深耕技術，投入軟體開發相關工作，發揮所學創造實際價值。</p>
+  </div>
+
+  <!-- 主體：自傳 + 工作 | 側欄 -->
+  <div class="body-grid">
+    <main>
+
+      <!-- 自傳 -->
+      <section>
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h2>自傳</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="bio-para">
+          <span class="bio-bullet">●</span>
+          <span class="bio-text">畢業於國立臺東大學資訊工程學系，於學業與專案歷程中培養紮實的程式開發基礎與良好的邏輯分析能力，能以系統化思維拆解問題並逐步驗證解決方案，並在團隊合作中扮演穩定協調的角色，確保專案目標如期達成。</span>
+        </div>
+        <div class="bio-para">
+          <span class="bio-bullet">●</span>
+          <span class="bio-text">在大學專題「智慧型人臉與行為辨識系統」中擔任組長，主導專案規劃、進度控管與執行策略，並依據實際狀況靈活調整計畫，帶領團隊有效推進專案進度。過程中充分運用資料結構與演算法的基礎，結合程式設計能力進行系統功能實作，提升整體開發效率與穩定性。</span>
+        </div>
+        <div class="bio-para">
+          <span class="bio-bullet">●</span>
+          <span class="bio-text">專題實作中整合 YOLO 物件偵測、MediaPipe 骨架識別與 AWS 人臉辨識服務，並參與核心功能開發與網頁介面設計。透過實際應用機器學習框架（如 TensorFlow），加深對模型應用流程與系統整合的理解，並累積將理論轉化為可運作系統的實務經驗。</span>
+        </div>
+        <div class="bio-para">
+          <span class="bio-bullet">●</span>
+          <span class="bio-text">在專案執行過程中，我持續自主學習新技術與工具，並嘗試以創造性的方式解決系統整合與效能調整問題，強化了解決問題、資源整合與專案管理的能力。同時，也熟悉使用辦公軟體進行技術文件整理與成果簡報，使技術成果能清楚傳達給團隊與指導者。</span>
+        </div>
+        <div class="bio-para">
+          <span class="bio-bullet">●</span>
+          <span class="bio-text">近期持續精進 Python 程式設計能力，與熟悉 Docker、WSL 環境的使用，學習並深化對演算法與系統設計的理解，將所學實際落實於專案中。期望未來加入貴公司後，能迅速投入專案開發，發揮技術整合與主動學習的優勢，為團隊創造實質價值，並朝成為具研發深度的工程師穩健邁進。</span>
+        </div>
+      </section>
+
+      <!-- 工作經驗 -->
+      <section>
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <h2>工作經驗</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">工讀生</span>
+            <span class="entry-period">8/2025 ~ 10/2025 · 2個月</span>
+          </div>
+          <div class="entry-org">澄闊企業</div>
+          <ul class="entry-list">
+            <li>協助政府機關進行電腦設備日常維護與異常排查</li>
+            <li>參與電腦硬體更換、軟體安裝與系統更新作業</li>
+            <li>支援作業系統與應用程式環境設定，確保設備正常運作</li>
+            <li>協助基本使用問題處理，提升單位工作效率</li>
+          </ul>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- 側欄 -->
+    <aside class="sidebar">
+
+      <section>
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <h2>學歷</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="edu-card">
+          <div class="edu-school">National Taitung University /<br>國立臺東大學</div>
+          <div class="edu-dept">資訊工程學系</div>
+          <div class="edu-period">09/2022 — 06/2025</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <h2>技能</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">程式開發</div>
+          <div class="skill-chips">
+            <span class="chip highlight">Python</span>
+            <span class="chip">C++</span>
+            <span class="chip">Kotlin</span>
+            <span class="chip">Android Studio</span>
+            <span class="chip">JavaScript</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-label">辦公軟體</div>
+          <div class="skill-chips">
+            <span class="chip">Word</span>
+            <span class="chip">PowerPoint</span>
+            <span class="chip">Excel</span>
+            <span class="chip">Git</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <h2>連結</h2>
+          <div class="section-line"></div>
+        </div>
+        <a class="github-badge" href="https://github.com/JKS712" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          <div class="github-text">github.com/JKS712</div>
+        </a>
+      </section>
+
+    </aside>
+  </div>
+
+  <!-- 專案：全寬 2×2 -->
+  <div class="project-section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2>專案</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-name">智慧型人臉與行為辨識系統</div>
+        <div class="project-desc">設計並實作結合 YOLO 和 MediaPipe 的智慧型人臉與行為辨識系統，有效擷取人臉與人體骨架進行行為分析。整合 AWS 臉部辨識技術，強化身份確認流程。系統可即時紀錄人員進出及行為資料，並於網頁介面展示辨識影像及統計圖表。協助管理者提升實驗室安全性與管理效率。</div>
+        <div class="project-tags">
+          <span class="ptag">YOLO</span>
+          <span class="ptag">MediaPipe</span>
+          <span class="ptag">AWS</span>
+          <span class="ptag">TensorFlow</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">PyTune — 音樂程式語言</div>
+        <div class="project-desc">音樂程式語言，讓使用者以寫程式的方式撰寫音樂，使用 Python 的 Lark 建構語法解析器，並搭配 Pygame 播放合成音訊。</div>
+        <div class="project-tags">
+          <span class="ptag">Python</span>
+          <span class="ptag">Lark</span>
+          <span class="ptag">Pygame</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">DevCheck</div>
+        <div class="project-desc">以網頁呈現的硬體資訊管理員，APP 以 Flask 為核心，啟動後可在網頁上呈現硬體資訊，包含 CPU、RAM、GPU、Disk 的使用量與系統資訊。</div>
+        <div class="project-tags">
+          <span class="ptag">Python</span>
+          <span class="ptag">Flask</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-name">Android 車牌辨識 APP</div>
+        <div class="project-desc">設計並開發輕量快速的車牌辨識 Android app，採用 Google 的 ML Kit 進行文字辨識。已實現車牌辨識功能，並持續優化雜訊處理以提升辨識準確度。</div>
+        <div class="project-tags">
+          <span class="ptag">Kotlin</span>
+          <span class="ptag">Android Studio</span>
+          <span class="ptag">Google ML Kit</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
