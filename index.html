@@ -643,9 +643,25 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 800px) {
-    .hero { grid-template-columns: 1fr; min-height: auto; }
-    .hero-right { display: none; }
-    .hero-left { padding: 60px 28px 40px; min-height: 100svh; justify-content: flex-end; }
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      min-height: auto;
+    }
+    .hero-left {
+      padding: 60px 28px 32px;
+      min-height: auto;
+      justify-content: flex-start;
+      order: 2;
+    }
+    .hero-right {
+      order: 1;
+      padding: 48px 28px 0;
+      justify-content: flex-start;
+    }
+    .photo-frame {
+      width: 120px;
+    }
     .bio-grid { grid-template-columns: 1fr; gap: 40px; }
   }
 
@@ -667,7 +683,7 @@
       <span>HUNG-SHIUN SHEN</span>
     </h1>
     <p class="hero-summary">
-      具備 C++、Python、Kotlin 等多語言開發能力，熟練使用 Android Studio 進行應用程式開發。曾於專題中擔任組長，帶領團隊完成系統實作，累積豐富的工程實踐與協作經驗。
+      具備 C++、Python、Kotlin 等多語言開發能力，並具備網頁設計能力，熟悉HTML、CSS、Flask，熟練使用 Android Studio 進行應用程式開發。曾於專題中擔任組長，帶領團隊完成系統實作，累積豐富的工程實踐與協作經驗。
     </p>
     <div class="hero-contacts">
       <a class="contact-row" href="tel:0960517016">
