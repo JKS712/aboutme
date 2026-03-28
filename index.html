@@ -3,626 +3,968 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>沈宏勳 — 軟體工程師履歷</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<title>沈宏勳 — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500&family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #1a1a1a;
-    --paper: #ffffff;
-    --accent: #b02828;      /* red — prints as dark grey */
-    --accent-light: #f0dada;
-    --muted: #555555;       /* medium grey — clear on B&W */
-    --border: #bbbbbb;
-    --tag-bg: #f0f0f0;
-    --header-bg: #f2f2f2;   /* light grey replaces black */
-    --summary-border: #b02828;
-    --edu-bg: #f2f2f2;
+    --bg: #0d0d0d;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: #2a2a2a;
+    --ink: #f0ece4;
+    --muted: #888;
+    --accent: #e05a3a;
+    --accent2: #c07020;
+    --tag-bg: #232323;
+    --nav-bg: rgba(13,13,13,0.92);
+    --hero-before1: rgba(224,90,58,0.08);
+    --hero-before2: rgba(240,192,96,0.05);
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  [data-theme="light"] {
+    --bg: #f5f2ed;
+    --surface: #ffffff;
+    --surface2: #f0ece6;
+    --border: #ddd8d0;
+    --ink: #1a1a1a;
+    --muted: #777;
+    --accent: #c0392b;
+    --accent2: #9a5000;
+    --tag-bg: #eee9e2;
+    --nav-bg: rgba(245,242,237,0.92);
+    --hero-before1: rgba(192,57,43,0.06);
+    --hero-before2: rgba(154,80,0,0.04);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Noto Sans TC', sans-serif;
-    background: #e8e8e8;
+    background: var(--bg);
     color: var(--ink);
     line-height: 1.7;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
-  /* ── A4 容器 ── */
-  .page {
-    width: 210mm;
-    height: 297mm;
-    margin: 20px auto;
-    padding: 11mm 13mm;
-    background: var(--paper);
-    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
+  /* ── scrollbar ── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     position: relative;
-    display: flex;
-    flex-direction: column;
+    overflow: hidden;
   }
-  .page::after {
+
+  .hero::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 50%, var(--hero-before1) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, var(--hero-before2) 0%, transparent 60%);
     pointer-events: none;
-    z-index: 0;
   }
-  .page > * { position: relative; z-index: 1; }
 
-  /* ── HEADER ── */
-  header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    gap: 14px;
-    padding-bottom: 6mm;
-    margin-bottom: 5mm;
-    border-bottom: 2px solid var(--ink);
-  }
-  .header-photo {
-    width: 22mm;
-    height: 28mm;
-    object-fit: cover;
-    object-position: center top;
-    border: 1px solid var(--border);
-    display: block;
-    flex-shrink: 0;
-  }
-  .header-left { display: flex; flex-direction: column; gap: 3px; }
-  .label-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-  h1 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--ink);
-  }
-  .subtitle {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.12em;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-  .contact-block {
+  .hero-left {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    align-items: flex-end;
-    padding-top: 4px;
+    justify-content: center;
+    padding: clamp(40px, 8vw, 100px);
+    position: relative;
+    z-index: 1;
   }
-  .contact-item {
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: clamp(10px, 1.2vw, 13px);
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
+    gap: 10px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(56px, 9vw, 120px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 28px;
+  }
+
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+    font-size: 0.55em;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin-top: 8px;
+  }
+
+  .hero-summary {
+    font-size: clamp(13px, 1.4vw, 15px);
+    color: var(--muted);
+    line-height: 1.8;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+
+  .hero-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
     color: var(--muted);
     text-decoration: none;
+    transition: color 0.2s;
   }
-  .contact-item .dot {
-    width: 4px; height: 4px;
+  .contact-row:hover { color: var(--accent); }
+  .contact-row .icon {
+    width: 28px; height: 28px;
+    border: 1px solid var(--border);
     border-radius: 50%;
-    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    font-size: 10px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .contact-row:hover .icon {
+    border-color: var(--accent);
+    background: rgba(224,90,58,0.1);
   }
 
-  /* ── SUMMARY ── */
-  .summary {
-    background: var(--header-bg);
-    border-left: 4px solid var(--accent);
-    padding: 8px 14px 10px 14px;
-    margin-bottom: 5mm;
-    position: relative;
-    break-inside: avoid;
-  }
-  .summary::before {
-    content: '"';
-    font-family: 'Noto Serif TC', serif;
-    font-size: 40px;
-    color: var(--accent);
-    position: absolute;
-    top: -5px; left: 10px;
-    line-height: 1;
-  }
-  .summary p {
-    font-size: 10.5px;
-    line-height: 1.8;
-    color: var(--ink);
-    padding-top: 12px;
-  }
-
-  /* ── 主體：左欄 + 右側欄 ── */
-  .body-grid {
-    display: grid;
-    grid-template-columns: 1fr 54mm;
-    gap: 6mm;
-    align-items: start;
-    margin-bottom: 5mm;
-  }
-
-  /* ── SECTION ── */
-  section { margin-bottom: 4.5mm; }
-  .section-header {
+  .hero-right {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 3mm;
-  }
-  .section-num {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-  h2 {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink);
-    white-space: nowrap;
-  }
-  .section-line { flex: 1; height: 1px; background: var(--border); }
-
-  /* ── ENTRY ── */
-  .entry {
-    padding-left: 10px;
-    border-left: 2px solid var(--accent-light);
+    justify-content: center;
     position: relative;
-    break-inside: avoid;
+    padding: clamp(40px, 6vw, 80px);
   }
-  .entry::before {
+
+  .photo-frame {
+    position: relative;
+    width: clamp(220px, 28vw, 380px);
+  }
+
+  .photo-frame::before {
     content: '';
     position: absolute;
-    left: -4px; top: 5px;
-    width: 6px; height: 6px;
-    border-radius: 50%;
+    inset: -12px;
+    border: 1px solid rgba(224,90,58,0.25);
+    border-radius: 2px;
+    animation: frameRotate 8s linear infinite;
+  }
+
+  @keyframes frameRotate {
+    0%   { transform: rotate(0deg);   opacity: 0.6; }
+    50%  { transform: rotate(180deg); opacity: 0.3; }
+    100% { transform: rotate(360deg); opacity: 0.6; }
+  }
+
+  .photo-frame img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+    border: 1px solid var(--border);
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: -16px;
+    right: -16px;
     background: var(--accent);
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+    text-transform: uppercase;
   }
-  .entry-header {
+
+  /* ── NAV ── */
+  .sticky-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(24px, 6vw, 80px);
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 4px;
-    margin-bottom: 1px;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
-  .entry-title {
-    font-family: 'Noto Serif TC', serif;
+  .sticky-nav::-webkit-scrollbar { display:none; }
+
+  .nav-item {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 11px;
-    font-weight: 600;
-    color: var(--ink);
-  }
-  .entry-period {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: var(--muted);
+    text-decoration: none;
+    padding: 18px 20px;
+    border-bottom: 2px solid transparent;
     white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
   }
-  .entry-org {
-    font-size: 9.5px;
+  .nav-item:hover {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .nav-item.active {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: clamp(60px, 8vw, 120px) clamp(24px, 8vw, 100px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
     color: var(--accent);
-    font-weight: 500;
-    margin-bottom: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
-  .entry-list { list-style: none; margin-top: 2px; }
-  .entry-list li {
-    font-size: 9.5px;
-    color: var(--muted);
-    padding-left: 10px;
-    position: relative;
-    margin-bottom: 1px;
-    line-height: 1.6;
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
   }
-  .entry-list li::before {
-    content: '→';
-    position: absolute; left: 0;
-    color: var(--accent);
-    font-size: 8px;
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700;
+    margin-bottom: clamp(32px, 5vw, 60px);
+    line-height: 1.1;
   }
 
   /* ── BIO ── */
-  .bio-para {
-    display: flex;
-    gap: 5px;
-    margin-bottom: 3px;
-    padding-left: 1mm;
-  }
-  .bio-bullet {
-    color: var(--accent);
-    font-size: 7.5px;
-    flex-shrink: 0;
-    margin-top: 4px;
-    line-height: 1;
-  }
-  .bio-text {
-    font-size: 10px;
-    color: var(--muted);
-    line-height: 1.8;
-    text-align: justify;
-    flex: 1;
-  }
-
-  /* ── SIDEBAR ── */
-  .sidebar section { margin-bottom: 4mm; }
-  .edu-card {
-    background: var(--edu-bg);
-    color: var(--ink);
-    border-left: 4px solid var(--accent);
-    padding: 8px 10px;
-    break-inside: avoid;
-  }
-  .edu-school {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 10px;
-    font-weight: 600;
-    margin-bottom: 2px;
-    line-height: 1.45;
-  }
-  .edu-dept { font-size: 9.5px; color: var(--muted); margin-bottom: 4px; }
-  .edu-period {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-  }
-  .skill-group { margin-bottom: 3.5mm; break-inside: avoid; }
-  .skill-group-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 7.5px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 3px;
-  }
-  .skill-chips { display: flex; flex-wrap: wrap; gap: 2px; }
-  .chip {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    padding: 2px 5px;
-    border: 1px solid var(--border);
-    color: var(--ink);
-    background: rgba(255,255,255,0.5);
-  }
-  .chip.highlight {
-    background: var(--accent);
-    color: white;
-    border-color: var(--accent);
-  }
-  .github-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 8px;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    color: var(--ink);
-    background: rgba(255,255,255,0.5);
-    break-inside: avoid;
-    margin-bottom: 3px;
-  }
-  .github-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.04em;
-  }
-
-  /* ── 專案：全寬 2×2，等高填滿 ── */
-  .project-section {
-    break-inside: avoid;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
-  }
-  .project-section .section-header { margin-bottom: 3mm; flex-shrink: 0; }
-  .project-grid {
+  .bio-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 3mm;
-    flex: 1;
-    min-height: 0;
+    gap: 60px;
+    align-items: start;
   }
-  .project-card {
-    border: 1px solid var(--border);
-    padding: 7px 9px;
-    background: rgba(255,255,255,0.45);
-    break-inside: avoid;
-    position: relative;
+
+  .bio-para {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .bio-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 10px;
+  }
+  .bio-text {
+    font-size: clamp(13px, 1.3vw, 14.5px);
+    color: #aaa;
+    line-height: 1.85;
+  }
+
+  .bio-sidebar {
     display: flex;
     flex-direction: column;
+    gap: 24px;
   }
-  .project-card::before {
+
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .info-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0;
     width: 3px; height: 100%;
     background: var(--accent);
   }
-  .project-name {
-    font-family: 'Noto Serif TC', serif;
-    font-size: 10.5px;
-    font-weight: 600;
+
+  .info-card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .info-card-value {
+    font-size: 14px;
     color: var(--ink);
-    margin-bottom: 3px;
+    line-height: 1.5;
+  }
+  .info-card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* ── SKILLS ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+  }
+
+  .skill-group-card {
+    background: var(--surface);
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .skill-group-card:hover {
+    border-color: var(--accent);
+    background: var(--surface2);
+  }
+  .skill-group-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--accent2);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .skill-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    background: var(--tag-bg);
+    color: var(--muted);
+    border: 1px solid var(--border);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .chip:hover {
+    color: var(--ink);
+    border-color: var(--muted);
+  }
+  .chip.primary {
+    color: var(--accent);
+    border-color: rgba(224,90,58,0.4);
+    background: rgba(224,90,58,0.08);
+  }
+
+  /* ── EXPERIENCE ── */
+  .exp-entry {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0 32px;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .exp-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .exp-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+  .exp-track {
+    width: 1px;
+    flex: 1;
+    background: var(--border);
+    margin-top: 6px;
+  }
+
+  .exp-period {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .exp-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .exp-org {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .exp-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .exp-list li {
+    font-size: 13.5px;
+    color: var(--muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.65;
+  }
+  .exp-list li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover {
+    border-color: rgba(224,90,58,0.4);
+    transform: translateY(-3px);
+  }
+  .project-card:hover::after { transform: scaleX(1); }
+
+  .project-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--border);
+    letter-spacing: 0.1em;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
   }
   .project-desc {
-    font-size: 9px;
-    color: var(--muted);
-    line-height: 1.7;
+    font-size: 13px;
+    color: #888;
+    line-height: 1.75;
     flex: 1;
   }
   .project-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 2px;
-    margin-top: 4px;
+    gap: 5px;
   }
   .ptag {
-    font-family: 'DM Mono', monospace;
-    font-size: 7.5px;
-    padding: 1px 5px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    padding: 2px 8px;
     background: var(--tag-bg);
     color: var(--muted);
     border: 1px solid var(--border);
+    letter-spacing: 0.04em;
   }
 
-  /* ── 列印 ── */
-  @media print {
-    @page { size: A4 portrait; margin: 0; }
-    html, body {
-      background: white !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-    .page {
-      width: 210mm;
-      height: 297mm;
-      margin: 0 !important;
-      padding: 10mm 12mm;
-      box-shadow: none !important;
-      background: var(--paper) !important;
-      display: flex;
-      flex-direction: column;
-    }
-    .page::after { display: none; }
-    .entry, .project-card, .skill-group, .edu-card,
-    .github-badge, .summary, .project-section, .bio-para {
-      break-inside: avoid;
-      page-break-inside: avoid;
-    }
-    * { animation: none !important; transition: none !important; }
-    .summary { background: var(--header-bg) !important; border-left: 4px solid var(--accent) !important; }
-    .edu-card { background: var(--edu-bg) !important; border-left: 4px solid var(--accent) !important; }
-    .chip.highlight { background: var(--accent) !important; color: white !important; }
-    .project-card::before { background: var(--accent) !important; }
+  /* ── LINKS ── */
+  .links-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
   }
 
-  /* ── 螢幕 hover ── */
-  @media screen {
-    .contact-item:hover { color: var(--accent); transition: color 0.2s; }
-    .project-card { transition: border-color 0.2s; }
-    .project-card:hover { border-color: var(--accent); }
-    .chip { transition: background 0.15s, color 0.15s; cursor: default; }
-    .chip:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    .github-badge { transition: background 0.2s, color 0.2s; }
-    .github-badge:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-    header, .summary, .body-grid, .project-section { animation: fadeUp 0.5s ease both; }
-    .summary { animation-delay: 0.07s; }
-    .body-grid { animation-delay: 0.14s; }
-    .project-section { animation-delay: 0.2s; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+  .link-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    color: var(--muted);
+    background: var(--surface);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .link-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 0;
+  }
+  .link-btn:hover { color: white; border-color: var(--accent); }
+  .link-btn:hover::before { transform: scaleX(1); }
+  .link-btn > * { position: relative; z-index: 1; }
+
+  .link-btn.main {
+    border-color: rgba(224,90,58,0.5);
+    color: var(--accent);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px clamp(24px, 8vw, 100px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--muted);
+  }
+  .footer-copy {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--border);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-toggle {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
+  }
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+  .theme-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .theme-btn .icon-sun  { display: none; }
+  .theme-btn .icon-moon { display: block; }
+  [data-theme="light"] .theme-btn .icon-sun  { display: block; }
+  [data-theme="light"] .theme-btn .icon-moon { display: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-eyebrow  { animation-delay: 0.0s; }
+  .hero-name     { animation-delay: 0.1s; }
+  .hero-summary  { animation-delay: 0.2s; }
+  .hero-contacts { animation-delay: 0.3s; }
+  .hero-right    { animation: fadeUp 0.9s 0.2s ease both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 800px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 28px 40px; min-height: 100svh; justify-content: flex-end; }
+    .bio-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  @media (max-width: 520px) {
+    .sticky-nav { padding: 0 16px; }
+    .section { padding: 50px 20px; }
+    footer { padding: 24px 20px; }
   }
 </style>
 </head>
 <body>
-<div class="page">
 
-  <!-- HEADER -->
-  <header>
-    <img class="header-photo" src="data:image/jpeg;base64,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" alt="沈宏勳">
-    <div class="header-left">
-      <span class="label-tag">Software Engineer </span>
-      <h1>沈宏勳</h1>
-      <div class="subtitle">新鮮人 · 高雄市, 台灣</div>
-    </div>
-    <div class="contact-block">
-      <a class="contact-item" href="tel:0960517016">
-        <span class="dot"></span>0960517016
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <div class="hero-eyebrow">軟體工程師 · 新鮮人</div>
+    <h1 class="hero-name">
+      沈宏勳
+      <span>HUNG-SHIUN SHEN</span>
+    </h1>
+    <p class="hero-summary">
+      具備 C++、Python、Kotlin 等多語言開發能力，熟練使用 Android Studio 進行應用程式開發。曾於專題中擔任組長，帶領團隊完成系統實作，累積豐富的工程實踐與協作經驗。
+    </p>
+    <div class="hero-contacts">
+      <a class="contact-row" href="tel:0960517016">
+        <div class="icon">☎</div>
+        0960-517-016
       </a>
-      <span class="contact-item">
-        <span class="dot"></span>&#50;&#48;&#49;&#56;&#106;&#97;&#99;&#107;&#121;&#55;&#55;&#49;&#49;&#50;&#50;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;
+      <span class="contact-row">
+        <div class="icon">@</div>
+        &#50;&#48;&#49;&#56;&#106;&#97;&#99;&#107;&#121;&#55;&#55;&#49;&#49;&#50;&#50;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;
       </span>
+      <a class="contact-row" href="https://github.com/JKS712" target="_blank">
+        <div class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </div>
+        github.com/JKS712
+      </a>
     </div>
-  </header>
-
-  <!-- SUMMARY -->
-  <div class="summary">
-    <p>畢業於國立臺東大學資訊工程學系，具備 C++、Python、Kotlin 等多語言開發能力，熟練使用 Android Studio 進行應用程式開發。曾於專題中擔任組長，帶領團隊完成系統實作，累積豐富的工程實踐與協作經驗。期望持續深耕技術，投入軟體開發相關工作，發揮所學創造實際價值。</p>
   </div>
-
-  <!-- 主體：自傳 + 工作 | 側欄 -->
-  <div class="body-grid">
-    <main>
-
-      <!-- 自傳 -->
-      <section>
-        <div class="section-header">
-          <span class="section-num">01</span>
-          <h2>自傳</h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="bio-para">
-          <span class="bio-bullet">●</span>
-          <span class="bio-text">畢業於國立臺東大學資訊工程學系，於學業與專案歷程中培養紮實的程式開發基礎與良好的邏輯分析能力，能以系統化思維拆解問題並逐步驗證解決方案，並在團隊合作中扮演穩定協調的角色，確保專案目標如期達成。</span>
-        </div>
-        <div class="bio-para">
-          <span class="bio-bullet">●</span>
-          <span class="bio-text">在大學專題「智慧型人臉與行為辨識系統」中擔任組長，主導專案規劃、進度控管與執行策略，並依據實際狀況靈活調整計畫，帶領團隊有效推進專案進度。過程中充分運用資料結構與演算法的基礎，結合程式設計能力進行系統功能實作，提升整體開發效率與穩定性。</span>
-        </div>
-        <div class="bio-para">
-          <span class="bio-bullet">●</span>
-          <span class="bio-text">專題實作中整合 YOLO 物件偵測、MediaPipe 骨架識別與 AWS 人臉辨識服務，並參與核心功能開發與網頁介面設計。透過實際應用機器學習框架（如 TensorFlow），加深對模型應用流程與系統整合的理解，並累積將理論轉化為可運作系統的實務經驗。</span>
-        </div>
-        <div class="bio-para">
-          <span class="bio-bullet">●</span>
-          <span class="bio-text">在專案執行過程中，我持續自主學習新技術與工具，並嘗試以創造性的方式解決系統整合與效能調整問題，強化了解決問題、資源整合與專案管理的能力。同時，也熟悉使用辦公軟體進行技術文件整理與成果簡報，使技術成果能清楚傳達給團隊與指導者。</span>
-        </div>
-        <div class="bio-para">
-          <span class="bio-bullet">●</span>
-          <span class="bio-text">近期持續精進 Python 程式設計能力，與熟悉 Docker、WSL 環境的使用，學習並深化對演算法與系統設計的理解，將所學實際落實於專案中。期望未來加入貴公司後，能迅速投入專案開發，發揮技術整合與主動學習的優勢，為團隊創造實質價值，並朝成為具研發深度的工程師穩健邁進。</span>
-        </div>
-      </section>
-
-      <!-- 工作經驗 -->
-      <section>
-        <div class="section-header">
-          <span class="section-num">02</span>
-          <h2>工作經驗</h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">工讀生</span>
-            <span class="entry-period">8/2025 ~ 10/2025 · 2個月</span>
-          </div>
-          <div class="entry-org">澄闊企業</div>
-          <ul class="entry-list">
-            <li>協助政府機關進行電腦設備日常維護與異常排查</li>
-            <li>參與電腦硬體更換、軟體安裝與系統更新作業</li>
-            <li>支援作業系統與應用程式環境設定，確保設備正常運作</li>
-            <li>協助基本使用問題處理，提升單位工作效率</li>
-          </ul>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- 側欄 -->
-    <aside class="sidebar">
-
-      <section>
-        <div class="section-header">
-          <span class="section-num">03</span>
-          <h2>學歷</h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="edu-card">
-          <div class="edu-school">National Taitung University /<br>國立臺東大學</div>
-          <div class="edu-dept">資訊工程學系</div>
-          <div class="edu-period">09/2022 — 06/2025</div>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-header">
-          <span class="section-num">04</span>
-          <h2>技能</h2>
-          <div class="section-line"></div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">程式開發</div>
-          <div class="skill-chips">
-            <span class="chip highlight">Python</span>
-            <span class="chip">C++</span>
-            <span class="chip">Kotlin</span>
-            <span class="chip">Android Studio</span>
-            <span class="chip">JavaScript</span>
-          </div>
-        </div>
-        <div class="skill-group">
-          <div class="skill-group-label">辦公軟體</div>
-          <div class="skill-chips">
-            <span class="chip">Word</span>
-            <span class="chip">PowerPoint</span>
-            <span class="chip">Excel</span>
-            <span class="chip">Git</span>
-          </div>
-        </div>
-      </section>
-
-            <section>
-        <div class="section-header">
-          <span class="section-num">05</span>
-          <h2>連結</h2>
-          <div class="section-line"></div>
-        </div>
-        <a class="github-badge" href="https://github.com/JKS712" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
-          </svg>
-          <div class="github-text">github.com/JKS712</div>
-        </a>
-        <a class="github-badge" href="https://github.com/JKS712/PyTune" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          <div class="github-text">JKS712/PyTune</div>
-        </a>
-        <a class="github-badge" href="https://github.com/JKS712/DevCheck" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          <div class="github-text">JKS712/DevCheck</div>
-        </a>
-        <a class="github-badge" href="https://github.com/JKS712/CarPlateIdentificationAPP" target="_blank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          <div class="github-text">JKS712/CarPlateIdentificationAPP</div>
-        </a>
-      </section>
-
-    </aside>
-  </div>
-
-  <!-- 專案：全寬 2×2 -->
-  <div class="project-section">
-    <div class="section-header">
-      <span class="section-num">06</span>
-      <h2>專案</h2>
-      <div class="section-line"></div>
+  <div class="hero-right">
+    <div class="photo-frame">
+      <img src="data:image/jpeg;base64,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" alt="沈宏勳">
+      <div class="photo-badge">高雄市 · 台灣</div>
     </div>
-    <div class="project-grid">
+  </div>
+</section>
 
-      <div class="project-card">
-        <div class="project-name">智慧型人臉與行為辨識系統</div>
-        <div class="project-desc">設計並實作結合 YOLO 和 MediaPipe 的智慧型人臉與行為辨識系統，有效擷取人臉與人體骨架進行行為分析。整合 AWS 臉部辨識技術，強化身份確認流程。系統可即時紀錄人員進出及行為資料，並於網頁介面展示辨識影像及統計圖表。協助管理者提升實驗室安全性與管理效率。</div>
-        <div class="project-tags">
-          <span class="ptag">YOLO</span>
-          <span class="ptag">MediaPipe</span>
-          <span class="ptag">AWS</span>
-          <span class="ptag">TensorFlow</span>
-        </div>
+<!-- NAV -->
+<nav class="sticky-nav">
+  <a class="nav-item" href="#about">自傳</a>
+  <a class="nav-item" href="#experience">工作經驗</a>
+  <a class="nav-item" href="#skills">技能</a>
+  <a class="nav-item" href="#projects">專案</a>
+  <a class="nav-item" href="#links">連結</a>
+  <div class="theme-toggle">
+    <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+      <svg class="icon-moon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="icon-sun" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <span id="themeLabel">淺色</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-label">01 · About</div>
+  <h2 class="section-title">自傳</h2>
+  <div class="bio-grid">
+    <div class="bio-main">
+      <div class="bio-para">
+        <div class="bio-dot"></div>
+        <p class="bio-text">畢業於國立臺東大學資訊工程學系，於學業與專案歷程中培養紮實的程式開發基礎與良好的邏輯分析能力，能以系統化思維拆解問題並逐步驗證解決方案，並在團隊合作中扮演穩定協調的角色，確保專案目標如期達成。</p>
       </div>
-
-      <div class="project-card">
-        <div class="project-name">PyTune — 音樂程式語言</div>
-        <div class="project-desc">音樂程式語言，讓使用者以寫程式的方式撰寫音樂，使用 Python 的 Lark 建構語法解析器，並搭配 Pygame 播放合成音訊。</div>
-        <div class="project-tags">
-          <span class="ptag">Python</span>
-          <span class="ptag">Lark</span>
-          <span class="ptag">Pygame</span>
-        </div>
+      <div class="bio-para">
+        <div class="bio-dot"></div>
+        <p class="bio-text">在大學專題「智慧型人臉與行為辨識系統」中擔任組長，主導專案規劃、進度控管與執行策略，並依據實際狀況靈活調整計畫，帶領團隊有效推進專案進度。過程中充分運用資料結構與演算法的基礎，結合程式設計能力進行系統功能實作，提升整體開發效率與穩定性。</p>
       </div>
-
-      <div class="project-card">
-        <div class="project-name">DevCheck</div>
-        <div class="project-desc">以網頁呈現的硬體資訊管理員，APP 以 Flask 為核心，啟動後可在網頁上呈現硬體資訊，包含 CPU、RAM、GPU、Disk 的使用量與系統資訊。</div>
-        <div class="project-tags">
-          <span class="ptag">Python</span>
-          <span class="ptag">Flask</span>
-        </div>
+      <div class="bio-para">
+        <div class="bio-dot"></div>
+        <p class="bio-text">專題實作中整合 YOLO 物件偵測、MediaPipe 骨架識別與 AWS 人臉辨識服務，並參與核心功能開發與網頁介面設計。透過實際應用機器學習框架（如 TensorFlow），加深對模型應用流程與系統整合的理解，並累積將理論轉化為可運作系統的實務經驗。</p>
       </div>
+      <div class="bio-para">
+        <div class="bio-dot"></div>
+        <p class="bio-text">在專案執行過程中，我持續自主學習新技術與工具，並嘗試以創造性的方式解決系統整合與效能調整問題，強化了解決問題、資源整合與專案管理的能力。同時，也熟悉使用辦公軟體進行技術文件整理與成果簡報，使技術成果能清楚傳達給團隊與指導者。</p>
+      </div>
+      <div class="bio-para">
+        <div class="bio-dot"></div>
+        <p class="bio-text">近期持續精進 Python 程式設計能力，與熟悉 Docker、WSL 環境的使用，學習並深化對演算法與系統設計的理解，將所學實際落實於專案中。期望未來加入貴公司後，能迅速投入專案開發，發揮技術整合與主動學習的優勢，為團隊創造實質價值，並朝成為具研發深度的工程師穩健邁進。</p>
+      </div>
+    </div>
+    <div class="bio-sidebar">
+      <div class="info-card">
+        <div class="info-card-label">學歷</div>
+        <div class="info-card-value">國立臺東大學</div>
+        <div class="info-card-sub">資訊工程學系　2022 — 2025</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">所在地</div>
+        <div class="info-card-value">高雄市，台灣</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">求職狀態</div>
+        <div class="info-card-value">新鮮人</div>
+        <div class="info-card-sub">積極尋找軟體工程相關職位</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="project-card">
-        <div class="project-name">Android 車牌辨識 APP</div>
-        <div class="project-desc">設計並開發輕量快速的車牌辨識 Android app，採用 Google 的 ML Kit 進行文字辨識。已實現車牌辨識功能，並持續優化雜訊處理以提升辨識準確度。</div>
-        <div class="project-tags">
-          <span class="ptag">Kotlin</span>
-          <span class="ptag
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-label">02 · Experience</div>
+  <h2 class="section-title">工作經驗</h2>
+  <div class="exp-entry">
+    <div class="exp-line">
+      <div class="exp-dot"></div>
+      <div class="exp-track"></div>
+    </div>
+    <div>
+      <div class="exp-period">2025.08 — 2025.10 · 2個月</div>
+      <div class="exp-title">工讀生</div>
+      <div class="exp-org">澄闊企業</div>
+      <ul class="exp-list">
+        <li>協助政府機關進行電腦設備日常維護與異常排查</li>
+        <li>參與電腦硬體更換、軟體安裝與系統更新作業</li>
+        <li>支援作業系統與應用程式環境設定，確保設備正常運作</li>
+        <li>協助基本使用問題處理，提升單位工作效率</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-label">03 · Skills</div>
+  <h2 class="section-title">技能</h2>
+  <div class="skills-grid">
+    <div class="skill-group-card">
+      <div class="skill-group-name">程式開發</div>
+      <div class="skill-chips">
+        <span class="chip primary">Python</span>
+        <span class="chip">C++</span>
+        <span class="chip">Kotlin</span>
+        <span class="chip">JavaScript</span>
+        <span class="chip">Java</span>
+      </div>
+    </div>
+    <div class="skill-group-card">
+      <div class="skill-group-name">框架 / 工具</div>
+      <div class="skill-chips">
+        <span class="chip">Android Studio</span>
+        <span class="chip">Flask</span>
+        <span class="chip">TensorFlow</span>
+        <span class="chip">YOLO</span>
+        <span class="chip">MediaPipe</span>
+        <span class="chip">Docker</span>
+        <span class="chip">WSL</span>
+      </div>
+    </div>
+    <div class="skill-group-card">
+      <div class="skill-group-name">辦公 / 版控</div>
+      <div class="skill-chips">
+        <span class="chip">Git</span>
+        <span class="chip">Word</span>
+        <span class="chip">PowerPoint</span>
+        <span class="chip">Excel</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-label">04 · Projects</div>
+  <h2 class="section-title">專案</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <div class="project-name">智慧型人臉與行為辨識系統</div>
+      <div class="project-desc">設計並實作結合 YOLO 和 MediaPipe 的智慧型人臉與行為辨識系統，有效擷取人臉與人體骨架進行行為分析。整合 AWS 臉部辨識技術，強化身份確認流程。系統可即時紀錄人員進出及行為資料，並於網頁介面展示辨識影像及統計圖表。協助管理者提升實驗室安全性與管理效率。</div>
+      <div class="project-tags">
+        <span class="ptag">YOLO</span>
+        <span class="ptag">MediaPipe</span>
+        <span class="ptag">AWS</span>
+        <span class="ptag">TensorFlow</span>
+        <span class="ptag">Python</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <div class="project-name">PyTune — 音樂程式語言</div>
+      <div class="project-desc">音樂程式語言，讓使用者以寫程式的方式撰寫音樂，使用 Python 的 Lark 建構語法解析器，並搭配 Pygame 播放合成音訊。</div>
+      <div class="project-tags">
+        <span class="ptag">Python</span>
+        <span class="ptag">Lark</span>
+        <span class="ptag">Pygame</span>
+        <span class="ptag">DSL</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <div class="project-name">DevCheck</div>
+      <div class="project-desc">以網頁呈現的硬體資訊管理員，APP 以 Flask 為核心，啟動後可在網頁上呈現硬體資訊，包含 CPU、RAM、GPU、Disk 的使用量與系統資訊。</div>
+      <div class="project-tags">
+        <span class="ptag">Python</span>
+        <span class="ptag">Flask</span>
+        <span class="ptag">SQLite</span>
+        <span class="ptag">JavaScript</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-num">04</div>
+      <div class="project-name">Android 車牌辨識 APP</div>
+      <div class="project-desc">設計並開發輕量快速的車牌辨識 Android app，採用 Google 的 ML Kit 進行文字辨識。已實現車牌辨識功能，並持續優化雜訊處理以提升辨識準確度。</div>
+      <div class="project-tags">
+        <span class="ptag">Kotlin</span>
+        <span class="ptag">Android Studio</span>
+        <span class="ptag">Google ML Kit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LINKS -->
+<section class="section" id="links">
+  <div class="section-label">05 · Links</div>
+  <h2 class="section-title">連結</h2>
+  <div class="links-grid">
+    <a class="link-btn main" href="https://github.com/JKS712" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      github.com/JKS712
+    </a>
+    <a class="link-btn" href="https://github.com/JKS712/PyTune" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      JKS712/PyTune
+    </a>
+    <a class="link-btn" href="https://github.com/JKS712/DevCheck" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      JKS712/DevCheck
+    </a>
+    <a class="link-btn" href="https://github.com/JKS712/CarPlateIdentificationAPP" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      JKS712/CarPlateIdentificationAPP
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">沈宏勳</div>
+  <div class="footer-copy">PORTFOLIO · 2025</div>
+</footer>
+
+<script>
+  /* ── THEME TOGGLE ── */
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeLabel');
+    if (html.getAttribute('data-theme') === 'light') {
+      html.removeAttribute('data-theme');
+      btn.textContent = '淺色';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      btn.textContent = '深色';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  /* ── RESTORE THEME ── */
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+      const btn = document.getElementById('themeLabel');
+      if (btn) btn.textContent = '深色';
+    }
+  })();
+
+  /* ── ACTIVE NAV ON SCROLL ── */
+  (function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-item[href^="#"]');
+
+    function setActive(id) {
+      navLinks.forEach(link => {
+        const isActive = link.getAttribute('href') === '#' + id;
+        link.classList.toggle('active', isActive);
+      });
+    }
+
+    // IntersectionObserver: fire when section is ≥20% visible
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActive(entry.target.id);
+        }
+      });
+    }, {
+      rootMargin: '-10% 0px -70% 0px',
+      threshold: 0
+    });
+
+    sections.forEach(sec => observer.observe(sec));
+
+    // Also highlight on smooth-scroll click (instant feedback)
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        const id = link.getAttribute('href').slice(1);
+        setActive(id);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
